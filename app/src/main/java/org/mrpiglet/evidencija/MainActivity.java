@@ -1,7 +1,9 @@
 package org.mrpiglet.evidencija;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,27 +34,38 @@ public class MainActivity extends AppCompatActivity {
     void updateAmount(int amount, Currency currency) {
         //write to shared preferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int pref_key = (currency==Currency.EUR)? R.string.pref_eur_amount_key : R.string.pref_din_amount_key;
+        int pref_key = ((currency==Currency.EUR)? (R.string.pref_eur_amount_key) : (R.string.pref_din_amount_key));
         int currAmount = sharedPreferences.getInt(
                 getString(pref_key),
                 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (!positiveChange) amount = -amount;
-        editor.putInt(getString(R.string.pref_eur_amount_key), currAmount + amount);
+        int totalAmount = currAmount + amount;
+        if (totalAmount <= 0) totalAmount = 0;
+        editor.putInt(getString(pref_key), totalAmount);
         editor.apply();
 
         updateAmountTextViews();
     }
 
     void resetAmounts() {
-        //write to shared preferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(getString(R.string.pref_eur_amount_key), 0);
-        editor.putInt(getString(R.string.pref_din_amount_key), 0);
-        editor.apply();
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.dialog_reset_title))
+                .setMessage(getString(R.string.dialog_reset_message))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.dialog_reset_yes_option, new DialogInterface.OnClickListener() {
 
-        updateAmountTextViews();
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //write to shared preferences
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(getString(R.string.pref_eur_amount_key), 0);
+                        editor.putInt(getString(R.string.pref_din_amount_key), 0);
+                        editor.apply();
+
+                        updateAmountTextViews();
+                    }})
+                .setNegativeButton(R.string.dialog_reset_no_option, null).show();
     }
 
     @Override
@@ -119,10 +132,15 @@ public class MainActivity extends AppCompatActivity {
         buttonEurOk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 int enteredAmount = 0;
+                EditText entryEurEditText = null;
                 try {
-                    EditText entryEurEditText = (EditText) findViewById(R.id.entryEurEditText);
+                    entryEurEditText = (EditText) findViewById(R.id.entryEurEditText);
                     enteredAmount = Integer.parseInt(entryEurEditText.getText().toString());
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    if (entryEurEditText != null) {
+                        entryEurEditText.setText("0");
+                    }
+                }
 
                 updateAmount(enteredAmount, Currency.EUR);
             }
@@ -139,6 +157,26 @@ public class MainActivity extends AppCompatActivity {
         button4200.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 updateAmount(4200, Currency.DIN);
+            }
+        });
+
+        final Button button5400 = (Button) findViewById(R.id.button5400);
+        button5400.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                updateAmount(5400, Currency.DIN);
+            }
+        });
+
+        final Button buttonDinOk = (Button) findViewById(R.id.buttonDinOK);
+        buttonDinOk.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int enteredAmount = 0;
+                try {
+                    EditText entryDinEditText = (EditText) findViewById(R.id.entryDinEditText);
+                    enteredAmount = Integer.parseInt(entryDinEditText.getText().toString());
+                } catch (Exception e) {}
+
+                updateAmount(enteredAmount, Currency.DIN);
             }
         });
 
