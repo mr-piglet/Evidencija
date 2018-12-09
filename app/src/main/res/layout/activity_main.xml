@@ -172,66 +172,63 @@
     <Button
         android:id="@+id/buttonEurOK"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="EUR OK"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/eurLabelTextView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button25"
-        app:layout_constraintTop_toBottomOf="@+id/entryEurEditText" />
+        app:layout_constraintEnd_toEndOf="@+id/button5400"
+        app:layout_constraintStart_toStartOf="@+id/button5400"
+        app:layout_constraintTop_toBottomOf="@+id/button5400" />
 
     <Button
         android:id="@+id/buttonDinOK"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="133dp"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="DIN OK"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/button5400"
         app:layout_constraintStart_toStartOf="@+id/button5400"
-        app:layout_constraintTop_toBottomOf="@+id/entryDinEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonEurOK" />
 
     <EditText
         android:id="@+id/entryEurEditText"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:inputType="text"
         android:text="5"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/eurLabelTextView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button45"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button45" />
 
     <EditText
         android:id="@+id/entryDinEditText"
-        android:layout_width="137dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:inputType="text"
         android:text="600"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/button5400"
-        app:layout_constraintStart_toStartOf="@+id/button5400"
-        app:layout_constraintTop_toBottomOf="@+id/button5400" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/entryEurEditText" />
 
     <Switch
         android:id="@+id/switchNegative"
@@ -250,12 +247,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Negative"
+        android:text="Negativno"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/switchNegative"
-        app:layout_constraintStart_toStartOf="@+id/eurAmountTextView"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEurOK" />
+        app:layout_constraintStart_toStartOf="@+id/eurAmountTextView" />
 </android.support.constraint.ConstraintLayout>
