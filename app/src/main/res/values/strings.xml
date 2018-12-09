@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Evidencija</string>
+    <string name="pref_eur_amount_key">pref_eur_amount_key</string>
+    <string name="pref_din_amount_key">pref_din_amount_key</string>
+</resources>
