@@ -7,4 +7,8 @@
     <string name="app_name">Evidencija</string>
     <string name="pref_eur_amount_key">pref_eur_amount_key</string>
     <string name="pref_din_amount_key">pref_din_amount_key</string>
+    <string name="pref_timestamp_key">pref_timestamp_key</string>
+
+    <string name="datetime_format_pattern">HH:mm:ss dd-MM-yyyy</string>
+    <string name="timestamp_view_label">Poslednja izmena: </string>
 </resources>

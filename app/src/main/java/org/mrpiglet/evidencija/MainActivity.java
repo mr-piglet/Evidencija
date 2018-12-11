@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private int eurAmount, dinAmount;
-    private TextView eurAmountTextView, dinAmountTextView;
+    private TextView eurAmountTextView, dinAmountTextView, timestampTextView;
     private Switch negativeSwitch;
     private boolean positiveChange = true;
 
@@ -27,8 +30,15 @@ public class MainActivity extends AppCompatActivity {
         eurAmount = sharedPreferences.getInt(getString(R.string.pref_eur_amount_key), 0);
         dinAmount = sharedPreferences.getInt(getString(R.string.pref_din_amount_key), 0);
 
+        long timestamp_millis = sharedPreferences.getLong(getString(R.string.pref_timestamp_key), 0);
+
         eurAmountTextView.setText(Integer.toString(eurAmount));
         dinAmountTextView.setText(Integer.toString(dinAmount));
+
+        Date date = new Date(timestamp_millis);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.datetime_format_pattern));
+        String formattedDate = simpleDateFormat.format(date);
+        timestampTextView.setText(getString(R.string.timestamp_view_label) + formattedDate);
     }
 
     void updateAmount(int amount, Currency currency) {
@@ -43,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         int totalAmount = currAmount + amount;
         if (totalAmount <= 0) totalAmount = 0;
         editor.putInt(getString(pref_key), totalAmount);
+
+        editor.putLong(getString(R.string.pref_timestamp_key), new Date().getTime());
+
         editor.apply();
 
         updateAmountTextViews();
@@ -61,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt(getString(R.string.pref_eur_amount_key), 0);
                         editor.putInt(getString(R.string.pref_din_amount_key), 0);
+
+                        editor.putLong(getString(R.string.pref_timestamp_key), new Date().getTime());
+
                         editor.apply();
 
                         updateAmountTextViews();
@@ -75,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         eurAmountTextView = findViewById(R.id.eurAmountTextView);
         dinAmountTextView = findViewById(R.id.dinAmountTextView);
+        timestampTextView = findViewById(R.id.timestampTextView);
 
         negativeSwitch = findViewById(R.id.switchNegative);
 
